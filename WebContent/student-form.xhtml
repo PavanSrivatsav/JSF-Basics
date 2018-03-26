@@ -67,9 +67,30 @@
 		</h:selectManyCheckbox>
 		<br />
 		<br />
-
-		<h:inputText></h:inputText>
-
+		Range : 
+		<h:inputText id="numRange" value="#{student.number}" required="true"
+			requiredMessage="no. is req" converterMessage="Enter a digit"
+			validatorMessage="Enter num b/w 0 and 5">
+			<f:validateLongRange minimum="0" maximum="5" />
+		</h:inputText>
+		<h:message for="numRange" styleClass="error" />
+		<br />
+		<br />
+		Mobile no : 
+		<h:inputText id="mobileNo" value="#{student.phoneNo}" required="true"
+			requiredMessage="mobile no. is req"
+			validatorMessage="Enter num in xxx-xxx-xxxx format">
+			<f:validateRegex pattern="\d{3}-\d{3}-\d{4}" />
+		</h:inputText>
+		<h:message for="mobileNo" styleClass="error" />
+		<br />
+		<br />
+		Code : 
+		<h:inputText id="code" validator="#{student.validateCode}">
+		</h:inputText>
+		<h:message for="code" styleClass="error"></h:message>
+		<br />
+		<br />
 		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
 	</h:form>
 </h:body>
