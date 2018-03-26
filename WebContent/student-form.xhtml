@@ -29,6 +29,15 @@
 		<br />
 		<br />
 
+		Choose Your Fav Prog Lang:-
+		
+		<h:selectOneRadio value="#{student.favProgLang}">
+			<f:selectItems value="#{student.favProgLanguages}" />
+		</h:selectOneRadio>
+
+		<br />
+		<br />
+
 		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
 	</h:form>
 </h:body>

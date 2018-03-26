@@ -15,6 +15,8 @@ public class Student implements Serializable {
 	private String lastName;
 	private String country;
 	private List<String> countries;
+	private String favProgLang;
+	private List<String> favProgLanguages;
 
 	public Student() {
 
@@ -23,12 +25,29 @@ public class Student implements Serializable {
 		countries.add("IND");
 		countries.add("UAE");
 
+		favProgLanguages = new ArrayList<String>();
+		favProgLanguages.add("JavaScript");
+		favProgLanguages.add("Java");
+		favProgLanguages.add("Dart");
+
 	}
 
 	/** Getters and Setters **/
 
 	public List<String> getCountries() {
 		return countries;
+	}
+
+	public String getFavProgLang() {
+		return favProgLang;
+	}
+
+	public void setFavProgLang(String favProgLang) {
+		this.favProgLang = favProgLang;
+	}
+
+	public List<String> getFavProgLanguages() {
+		return favProgLanguages;
 	}
 
 	public String getFirstName() {
