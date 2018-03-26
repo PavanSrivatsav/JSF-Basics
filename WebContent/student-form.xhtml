@@ -14,6 +14,13 @@
 		<h:inputText value="#{student.lastName}" />
 		<br />
 		<br />
+		Country:
+		<h:selectOneMenu value="#{student.country}">
+			<f:selectItem itemValue="United States Of America" itemLabel="USA" />
+			<f:selectItem itemValue="India" itemLabel="IND" />
+		</h:selectOneMenu>
+		<br />
+		<br />
 		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
 	</h:form>
 </h:body>
