@@ -5,6 +5,7 @@
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<title>Student Registration</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </h:head>
 <h:body>
 	<style>
@@ -70,12 +71,14 @@
 		Range : 
 		<h:inputText id="numRange" value="#{student.number}" required="true"
 			requiredMessage="no. is req" converterMessage="Enter a digit"
-			validatorMessage="Enter num b/w 0 and 5">
+			validatorMessage="Enter num b/w 0 and 5" class="only-num"
+			a:data-max-score="5" onchange="validateRange(this);">
 			<f:validateLongRange minimum="0" maximum="5" />
 		</h:inputText>
 		<h:message for="numRange" styleClass="error" />
 		<br />
 		<br />
+		<div id="g"></div>
 		Mobile no : 
 		<h:inputText id="mobileNo" value="#{student.phoneNo}" required="true"
 			requiredMessage="mobile no. is req"
@@ -93,5 +96,33 @@
 		<br />
 		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
 	</h:form>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		 $('.only-num').bind('keypress', function(e) {
+		console.log( e.which );
+		if($('.only-num').val().length == 0){
+		var k = e.which;
+		var ok = k >= 65 && k <= 90 || // A-Z
+            k >= 97 && k <= 122 || // a-z
+            k >= 48 && k <= 57; // 0-9
+		
+		if (!ok){
+		e.preventDefault();
+		}
+	}
+});  
+		function validateRange(ele) {
+			console.log($(ele).val());
+			if (($(ele).val()) > ($(ele).data("max-score"))) {
+				$(ele).css("border", "2px solid red");
+				$(ele).parent().find('#g').html($("<span style='color:red'> Enter a proper no. idiot!</span>"));
+			} else {
+				$(ele).removeAttr("style");
+				$(ele).parent().find('#g').empty();
+			}
+		}
+		//]]>
+	</script>
 </h:body>
 </html>
