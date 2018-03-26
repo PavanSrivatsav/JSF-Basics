@@ -14,7 +14,14 @@
 Hello #{student.firstName} #{student.lastName} , from #{student.country}
 <br />
 His Fav Prog Lang is '#{student.favProgLang}'
+<br />
+Lang He can Speak:-
 
+<ul>
+		<ui:repeat value="${student.commLang}" var="communicationLanguage">
+			<li>#{communicationLanguage}</li>
+		</ui:repeat>
+	</ul>
 
 </h:body>
 </html>

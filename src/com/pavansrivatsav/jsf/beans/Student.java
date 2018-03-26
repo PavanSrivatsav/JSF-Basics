@@ -17,6 +17,8 @@ public class Student implements Serializable {
 	private List<String> countries;
 	private String favProgLang;
 	private List<String> favProgLanguages;
+	private String[] commLang;
+	
 
 	public Student() {
 
@@ -36,6 +38,14 @@ public class Student implements Serializable {
 
 	public List<String> getCountries() {
 		return countries;
+	}
+
+	public void setCommLang(String[] commLang) {
+		this.commLang = commLang;
+	}
+
+	public String[] getCommLang() {
+		return commLang;
 	}
 
 	public String getFavProgLang() {

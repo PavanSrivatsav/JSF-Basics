@@ -7,13 +7,31 @@
 	<title>Student Registration</title>
 </h:head>
 <h:body>
+	<style>
+.error {
+	color: red;
+}
+</style>
 	<h:form>
-		<h:inputText value="#{student.firstName}" />
+		<h:outputLabel for="firstName"> First Name: </h:outputLabel>
+		<h:inputText id="firstName" value="#{student.firstName}"
+			required="true" label="first name"
+			requiredMessage="first name is mandatory" />
+
+		<h:message for="firstName" styleClass="error"></h:message>
+
 		<br />
 		<br />
-		<h:inputText value="#{student.lastName}" />
+		<h:outputLabel for="lastName"> Last Name: </h:outputLabel>
+		<h:inputText id="lastName" value="#{student.lastName}"
+			label="last name" required="true"
+			requiredMessage="last name is mandatory" />
+
+		<h:message for="lastName" styleClass="error"></h:message>
+
 		<br />
 		<br />
+
 		<!-- Country:(Manually Added)
 		<h:selectOneMenu value="#{student.country}">
 			<f:selectItem itemValue="United States Of America" itemLabel="USA" />
@@ -37,6 +55,20 @@
 
 		<br />
 		<br />
+		
+		What all langugages you can speak:-
+		
+		<h:selectManyCheckbox value="#{student.commLang}">
+			<f:selectItem itemValue="English" />
+			<f:selectItem itemValue="Telugu" />
+			<f:selectItem itemValue="Hindi" />
+			<f:selectItem itemValue="Tamil" />
+			<f:selectItem itemValue="Arabic" />
+		</h:selectManyCheckbox>
+		<br />
+		<br />
+
+		<h:inputText></h:inputText>
 
 		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
 	</h:form>
