@@ -1,12 +1,19 @@
 package com.pavansrivatsav.jsf.beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
-public class Student {
+public class Student implements Serializable {
 
-	public String firstName;
-	public String lastName;
+	private static final long serialVersionUID = 1L;
+
+	private String firstName;
+	private String lastName;
+
+	public Student() {
+	}
 
 	/** Getters and Setters **/
 
