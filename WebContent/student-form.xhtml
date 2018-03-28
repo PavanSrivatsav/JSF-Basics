@@ -2,7 +2,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
 	<title>Student Registration</title>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -13,14 +14,13 @@
 	color: red;
 }
 </style>
-	<h:form>
+	<h:form id="sample-form">
 		<h:outputLabel for="firstName"> First Name: </h:outputLabel>
 		<h:inputText id="firstName" value="#{student.firstName}"
 			required="true" label="first name"
 			requiredMessage="first name is mandatory" />
 
 		<h:message for="firstName" styleClass="error"></h:message>
-
 		<br />
 		<br />
 		<h:outputLabel for="lastName"> Last Name: </h:outputLabel>
@@ -59,18 +59,22 @@
 		
 		What all langugages you can speak:-
 		
-		<h:selectManyCheckbox value="#{student.commLang}">
-			<f:selectItem itemValue="English" />
-			<f:selectItem itemValue="Telugu" />
-			<f:selectItem itemValue="Hindi" />
-			<f:selectItem itemValue="Tamil" />
-			<f:selectItem itemValue="Arabic" />
+		<h:selectManyCheckbox value="#{student.commLang}" required="true"
+			requiredMessage="select any one lang" id="language">
+			<f:selectItem itemValue="English" itemDisabled="#{student.otherLangFlag}"/>
+			<f:selectItem itemValue="Telugu" itemDisabled="#{student.otherLangFlag}"/>
+			<f:selectItem itemValue="Hindi" itemDisabled="#{student.otherLangFlag}"/>
+			<f:selectItem itemValue="Tamil" itemDisabled="#{student.otherLangFlag}"/>
+			<f:selectItem itemValue="Arabic" itemDisabled="#{student.otherLangFlag}"/>
+			<f:selectItem itemValue="Other" />			
+			<f:ajax listener ="#{student.changeValue}" render="language testt" />		
 		</h:selectManyCheckbox>
+		<h:message for="language" styleClass="error" />			
 		<br />
-		<br />
+		<h:inputText rendered="#{student.otherLangFlag}" id="testt"></h:inputText>		
 		Range : 
 		<h:inputText id="numRange" value="#{student.number}" required="true"
-			requiredMessage="no. is req" converterMessage="Enter a digit"
+			requiredMessage="no.is req" converterMessage="Enter a digit"
 			validatorMessage="Enter num b/w 0 and 5" class="only-num"
 			a:data-max-score="5" onchange="validateRange(this);">
 			<f:validateLongRange minimum="0" maximum="5" />
@@ -94,32 +98,35 @@
 		<h:message for="code" styleClass="error"></h:message>
 		<br />
 		<br />
-		<h:commandButton value="Click me!" action="student_response"></h:commandButton>
+		<h:commandButton value="Click me!" id="submitFormBtn"
+			action="student_response">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
 	</h:form>
 
 	<script type="text/javascript">
 		//<![CDATA[
-		 $('.only-num').bind('keypress', function(e) {
-		console.log( e.which );
-		if($('.only-num').val().length == 0){
-		var k = e.which;
-		var ok = k >= 65 && k <= 90 || // A-Z
-            k >= 97 && k <= 122 || // a-z
-            k >= 48 && k <= 57; // 0-9
-		
-		if (!ok){
-		e.preventDefault();
-		}
-	}
-});  
+		$('.only-num').bind('keypress', function(e) {
+			var k = e.which;
+			var ok = k >= 48 && k <= 57; // 0-9
+
+			if (!ok) {
+				e.preventDefault();
+			}
+		});
 		function validateRange(ele) {
-			console.log($(ele).val());
 			if (($(ele).val()) > ($(ele).data("max-score"))) {
 				$(ele).css("border", "2px solid red");
-				$(ele).parent().find('#g').html($("<span style='color:red'> Enter a proper no. idiot!</span>"));
+				$(ele)
+						.parent()
+						.find('#g')
+						.html(
+								$("<span style='color:red'> Enter a proper no. idiot!</span>"));
+				$('#sample-form\\:submitFormBtn').attr('disabled', 'disabled');
 			} else {
 				$(ele).removeAttr("style");
 				$(ele).parent().find('#g').empty();
+				$('#sample-form\\:submitFormBtn').removeAttr('disabled')
 			}
 		}
 		//]]>

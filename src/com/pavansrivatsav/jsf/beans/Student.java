@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 @ManagedBean
+
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +25,15 @@ public class Student implements Serializable {
 	private String[] commLang;
 	private Integer number;
 	private String phoneNo;
+	private Boolean otherLangFlag = false;
+
+	public Boolean getOtherLangFlag() {
+		return otherLangFlag;
+	}
+
+	public void setOtherLangFlag(Boolean otherLangFlag) {
+		this.otherLangFlag = otherLangFlag;
+	}
 
 	public Student() {
 
@@ -37,6 +47,10 @@ public class Student implements Serializable {
 		favProgLanguages.add("Java");
 		favProgLanguages.add("Dart");
 
+		// if(commLang[0] == "Other"){
+		//
+		// }
+
 	}
 
 	public void validateCode(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -47,9 +61,17 @@ public class Student implements Serializable {
 
 		String data = value.toString(); // conv to string
 
-		if (!data.startsWith("PAV")) {
+		if (!data.startsWith("PAV") || data.equals("PAV")) {
 			FacesMessage msg = new FacesMessage("Code Shld start with PAV");
 			throw new ValidatorException(msg);
+		}
+	}
+
+	public void changeValue() {
+		for (int i = 0; i < commLang.length; i++) {
+			if (commLang[i].trim().equalsIgnoreCase("Other")) {
+				otherLangFlag = !otherLangFlag;
+			}
 		}
 	}
 
